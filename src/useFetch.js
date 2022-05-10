@@ -23,7 +23,7 @@ const reducer = (state, action) => {
   }
 };
 
-export function useFetch(url) {
+export default function useFetch(url) {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
