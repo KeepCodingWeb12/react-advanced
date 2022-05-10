@@ -1,23 +1,27 @@
-import logo from './logo.svg';
+import { useEffect, useState } from 'react';
 import './App.css';
 
+const TEAMS_URL = 'https://www.balldontlie.io/api/v1/teams';
+
 function App() {
+  const [teams, setTeams] = useState([]);
+
+  useEffect(() => {
+    fetch(TEAMS_URL)
+      .then(response => response.json())
+      .then(({ data }) => setTeams(data));
+  }, []);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Teams</h1>
+      {teams.length > 0 && (
+        <ul>
+          {teams.map(team => (
+            <li>{team.full_name}</li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 }
